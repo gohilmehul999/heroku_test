@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var port = process.env.PORT || 8080;
+var port = 8080;
 var morgan = require("morgan");
 let mongoose = require('mongoose');
 var bodyParser = require('body-parser');
@@ -24,20 +24,20 @@ app.use(function (req, res, next) {
 app.use(morgan('dev'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use('/api',appRoute);
+app.use('/api', appRoute);
 
 // mongoose.connect('mongodb+srv://mongodbuser:mongodbuser@cluster0-mvmyh.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true,  useCreateIndex: true, useUnifiedTopology: true });
 mongoose.connect('mongodb://localhost:27017/mehul_heroku');
 var conn = mongoose.connection;
 
-conn.on('connected', function(){
+conn.on('connected', function () {
     console.log("Successfully connected to MongoDB !!!");
 });
-conn.on('disconnected', function(){
+conn.on('disconnected', function () {
     console.log("Successfully disconnected to MongoDB !!!");
 });
 conn.on('error', console.error.bind(console, 'connection error:'));
 
-app.listen(port, ()=> {
-    console.log("Connected to localhost :"+port);
+app.listen(port, () => {
+    console.log("Connected to localhost :" + port);
 });
